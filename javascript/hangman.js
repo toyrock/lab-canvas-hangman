@@ -1,37 +1,59 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord = this.pickWord();
+    this.letters = [];
+    this.guessedLetters = '';
+    this.errorsLeft = 10;
   }
 
   pickWord() {
-    // ... your code goes here
+
+    return this.words[Math.floor(Math.random() * this.words.length)].toUpperCase();
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
-  }
+      if (keyCode > 64 && keyCode < 91) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  
+  
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    return this.letters.includes(letter) //? false : true;
+    //return !this.letters.includes(letter)
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    if(!this.guessedLetters.includes(letter)){
+    this.guessedLetters += letter;
   }
-
+  }
   addWrongLetter(letter) {
-    // ... your code goes here
+   if(!this.letter.includes(letter)){
+    this.errorsLeft -= 1;
+    this.letters.push(letter);
   }
-
+  }
   checkGameOver() {
-    // ... your code goes here
+    if(this.errorsLeft >0) return false;
+    return true;
+    
   }
 
   checkWinner() {
-    // ... your code goes here
+    let allLetters = true;
+    this.secretWord.split('').forEach(letter => {
+      if(!this.guessedLetters.includes(letter))
+      allLetters = false;
+    })
+    return allLetters;
   }
-}
+}  
+
 
 let hangman;
 
@@ -52,4 +74,5 @@ if (startGameButton) {
 document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
+  console.log(event.which)
 });
